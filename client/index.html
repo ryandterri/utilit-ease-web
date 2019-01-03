@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" ng-app="utilit-ease">
+
+<head>
+    <title>Utilit-ease</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+
+<nav class="light-blue">
+    <div class="nav-wrapper container">
+        <a class="brand-logo" href="/">Utilit-ease</a>
+        <ul class="right hide-on-med-and-down">
+            <li>Everyone knows donkey is better (this is for you moms)</li>
+            <li ui-sref-active="active"><a ui-sref="simple">Blind Trust</a></li>
+            <li ui-sref-active="active"><a ui-sref="compare">Compare</a></li>
+            <li ui-sref-active="active"><a ui-sref="information">FAQ</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div ui-view></div>
+</div>
+
+<script src="/js/env.js"></script>
+<script src="/js/site.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.2.2/angular-materialize.min.js"></script>
+<script src="/js/utilit-ease.js"></script>
+
+</body>
+
+</html>

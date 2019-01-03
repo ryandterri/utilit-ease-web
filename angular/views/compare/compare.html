@@ -1,0 +1,199 @@
+<div class="row">
+    <div class="col m12" id="top">
+        <h1>Let's compare some electricity plans</h1>
+        <a style="cursor: pointer" ng-click="ctrl.show_instructions = !ctrl.show_instructions">{{ctrl.show_instructions
+            ? 'Hide Instructions' : 'Show Instructions'}}</a>
+        <div ng-show="ctrl.show_instructions">
+            <p>
+                Enter your monthly usage amounts to use for the calculation below. The ideal list is a usage amount for
+                each month of the year. If you provide less than 12 months of unique usage amounts the estimate will not
+                be as accurate. Below is some test data. Just
+                click the button for which usage level you want to test.
+            </p>
+
+            <p>
+                The results shown will be color coded green, yellow or red.<br>
+            <table>
+                <tr class="light-green lighten-3">
+                    <td>Green</td>
+                    <td>The price is lower than the standard deviation from the mean</td>
+                </tr>
+                <tr class="yellow lighten-3">
+                    <td>Yellow</td>
+                    <td>The price is within the standard deviation from the mean</td>
+                </tr>
+                <tr class="red lighten-3">
+                    <td>Red</td>
+                    <td>The price is higher than the standard deviation from the mean</td>
+                </tr>
+            </table>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" ng-show="ctrl.selected_result">
+        <h3>Cost analysis of {{ctrl.selected_result.Company}} - {{ctrl.selected_result.Name}}</h3>
+        <div class="row">
+            <div class="col m6">
+                <canvas class="chart chart-line" chart-data="ctrl.chart.data" chart-labels="ctrl.chart.labels"
+                        chart-series="ctrl.chart.series" chart-options="ctrl.chart.options"></canvas>
+            </div>
+            <div class="col m6">
+                <canvas class="chart chart-line" chart-data="ctrl.pkw_chart.data" chart-labels="ctrl.pkw_chart.labels"
+                        chart-series="ctrl.pkw_chart.series" chart-options="ctrl.pkw_chart.options"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col m6">
+                <canvas class="chart chart-line" chart-data="ctrl.personal_chart.data"
+                        chart-labels="ctrl.personal_chart.labels" chart-series="ctrl.personal_chart.series"
+                        chart-options="ctrl.personal_chart.options"
+                        chart-dataset-override="ctrl.personal_chart.datasetOverride"></canvas>
+            </div>
+            <div class="col m6">
+                <canvas class="chart chart-line" chart-data="ctrl.personal_chart_pkwh.data"
+                        chart-labels="ctrl.personal_chart_pkwh.labels" chart-series="ctrl.personal_chart_pkwh.series"
+                        chart-options="ctrl.personal_chart_pkwh.options"
+                        chart-dataset-override="ctrl.personal_chart_pkwh.datasetOverride"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h4>Test Data</h4>
+<div class="btn-group">
+    <button class="btn waves-effect light-blue" ng-click="ctrl.generate_low()">Low Usage</button>
+    <button class="btn waves-effect light-blue" ng-click="ctrl.generate_medium()">Medium Usage</button>
+    <button class="btn waves-effect light-blue" ng-click="ctrl.generate_high()">High usage</button>
+</div>
+
+<hr>
+
+<div class="row">
+    <form>
+        <div class="input-field col s6">
+            <label class="active" for="usages">Enter a comma separated list of usage amounts</label>
+            <input id="usages" type="text" class="form-control" ng-model="ctrl.usages"/>
+        </div>
+        <div class="input-field col s6">
+            <select ng-model="ctrl.tdu"
+                    ng-options="tdu for tdu in ctrl.tdus | orderBy: tdu">
+            </select>
+            <label>TDU</label>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="input-field col m3">
+        <select class="form-control" ng-model="ctrl.company"
+                ng-options="company for company in ctrl.companies | orderBy: company">
+            <option value="">All</option>
+        </select>
+        <label>Company</label>
+    </div>
+    <div class="input-field col m3">
+        <select class="form-control" ng-model="ctrl.term" ng-options="term for term in ctrl.terms | orderBy: term">
+            <option value="">All</option>
+        </select>
+        <label>Term</label>
+    </div>
+    <div class="input-field col m3">
+        <select ng-model="ctrl.limitTo"
+                ng-options="option.size for option in ctrl.limits track by option.size">
+        </select>
+        <label># of results</label>
+    </div>
+</div>
+<div class="form-group">
+    <button class="btn-floating pulse light-blue" ng-click="ctrl.compare()">Go</button>
+    <blockquote>
+        To keep things fair we use the same charges for the tdu across all offers instead of what is on the EFL<br/>
+        Meter Charge: {{ctrl.tdu.Meter_Charge | currency}} per month<br/> Variable Charge: {{ctrl.tdu.Variable_Charge |
+        currency:"$" : 4}} per
+        kWh
+    </blockquote>
+</div>
+
+<p class="red-text" ng-show="ctrl.error">{{ctrl.error}}</p>
+
+<hr/>
+
+<div class="row" ng-show="ctrl.result">
+    <div class="col-xs-12">
+        <h4>{{ctrl.result.results.length}} Results Found</h4>
+        <a style="cursor: pointer" ng-click="ctrl.show_stats = !ctrl.show_stats">{{ctrl.show_stats ? 'Hide Stats' :
+            'Show Stats'}}</a>
+    </div>
+    <div class="col m6" ng-show="ctrl.show_stats">
+        <div class="card-panel light-blue white-text">
+            <strong>Number of usage data points</strong>
+            <span>{{ctrl.result.usages.length}}</span><br>
+            <strong>Sum of usage</strong>
+            <span>{{ctrl.result.usage_total}} kWh</span><br>
+            <strong>Total cost mean</strong>
+            <span>{{ctrl.result.mean | currency}}</span><br>
+            <strong>Total cost standard deviation</strong>
+            <span>{{ctrl.result.std_dev | currency}}</span><br>
+            <strong>Average cost per month mean</strong>
+            <span>{{ctrl.result.avg_mean | currency}}</span><br>
+            <strong>Average cost per month standard deviation</strong>
+            <span>{{ctrl.result.avg_std_dev | currency}}</span><br>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <table class="responsive-table">
+            <thead>
+            <tr>
+                <th>Company</th>
+                <th>Plan Name</th>
+                <th>Term</th>
+                <th title="Sum of (usage amounts provided @ rate)">Total Cost</th>
+                <th title="Total Cost / Amount of usages provided">Month Avg</th>
+                <th>Avg per kWh</th>
+                <th>Info</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-class="{'red lighten-3': result.Grade == 'Bad', 'yellow lighten-3': result.Grade == 'Average', 'light-green lighten-3': result.Grade == 'Good'}"
+                ng-repeat-start="result in ctrl.result.results | orderBy: 'Total' | limitTo: ctrl.limitTo.size">
+                <td>{{result.Company}}</td>
+                <td>{{result.Name}}</td>
+                <td>{{result.Term}}</td>
+                <td>{{result.Total | currency}}</td>
+                <td>{{result.Average_Per_Month | currency}}</td>
+                <td>{{result.Average_Price_Per_kWh | currency:"$" : 4}}</td>
+                <td style="text-align: right">
+                    <i ng-show="!result.Approved" class="material-icons red-text"
+                       title="500 kWh PTC: ${{result.Price_At_500}} - Actual: ${{result.Actual_Price_At_500}}">add_alert</i>
+                    <a ng-show="result.EFL" href="{{result.EFL}}" target="_blank"><i
+                            class="material-icons">picture_as_pdf</i></a>
+                    <a ng-show="result.Link" href="{{result.Link}}" target="_blank"><i
+                            class="material-icons">link</i></a>
+                    <a href="#top" target="_self"><i style="cursor: pointer" ng-click="ctrl.analyze(result)"
+                                                     class="material-icons">insert_chart</i></a>
+                    <i style="cursor: pointer" ng-click="result.show_details = !result.show_details"
+                       class="material-icons">expand_more</i>
+                </td>
+            </tr>
+            <tr ng-show="result.show_details" ng-repeat-end>
+                <td colspan="9">
+                    <table class="table table-condensed" style="margin-bottom: 0px">
+                        <tr>
+                            <td><strong>Usage Amount</strong></td>
+                            <td ng-repeat="usage in ctrl.result.Usages track by $index">{{usage}} kWh</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Usage Cost</strong></td>
+                            <td ng-repeat="cost in result.Usage_Costs track by $index">{{cost | currency}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
