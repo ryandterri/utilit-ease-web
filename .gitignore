@@ -3,4 +3,5 @@
 node_modules
 client/**/*
 !client/index.html
+!client/js
 !client/js/env.js
