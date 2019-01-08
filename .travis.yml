@@ -1,3 +1,5 @@
+language: node_js
+
 env:
   global:
     - VERSION=1.${TRAVIS_BUILD_NUMBER}
@@ -8,9 +10,6 @@ env:
     - ARCH=rpi
       DOCKER_BUILD=ryandterri/utilit-ease-web:arm32v6-${VERSION}
       DOCKERFILE=Dockerfile.arm32v6
-
-sudo: required
-
 services:
   - docker
 
