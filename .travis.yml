@@ -1,0 +1,25 @@
+env:
+  global:
+    - VERSION=1.${TRAVIS_BUILD_NUMBER}
+  matrix:
+    - ARCH=x86_64
+      DOCKER_BUILD=ryandterri/utilit-ease-web:${VERSION}
+      DOCKERFILE=Dockerfile
+    - ARCH=rpi
+      DOCKER_BUILD=ryandterri/utilit-ease-web:arm32v6-${VERSION}
+      DOCKERFILE=Dockerfile.arm32v6
+
+sudo: required
+
+services:
+  - docker
+
+after_success:
+  - docker run --rm --privileged multiarch/qemu-user-static:register
+  - docker build -t ${DOCKER_BUILD} -f ${DOCKERFILE} .
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASSWORD || false'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && docker push ${DOCKER_BUILD} || false'
+
+branches:
+  only:
+    - master
