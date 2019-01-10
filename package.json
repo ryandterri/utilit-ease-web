@@ -7,9 +7,11 @@
     "start": "node index.js"
   },
   "husky": {
-    "pre-commit": "npm test",
-    "pre-push": "npm test",
-    "commitmsg": "validate-commit-msg"
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test",
+      "commitmsg": "validate-commit-msg"
+    }
   },
   "repository": {
     "type": "git",
