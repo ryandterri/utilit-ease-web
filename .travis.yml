@@ -1,3 +1,5 @@
+sudo: required
+
 language: node_js
 node_js:
   - "node"
@@ -15,8 +17,8 @@ env:
 services:
   - docker
 
-after_success:
-  - docker run --rm --privileged multiarch/qemu-user-static:register
+script:
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker build -t ${DOCKER_BUILD} -f ${DOCKERFILE} .
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD || false'
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && docker push ${DOCKER_BUILD} || false'
