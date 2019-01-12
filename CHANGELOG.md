@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.7"></a>
+## [1.2.7](https://github.com/ryandterri/utilit-ease-web/compare/v1.2.6...v1.2.7) (2019-01-12)
+
+
+### Bug Fixes
+
+* **travis:** Fixed version ([7109206](https://github.com/ryandterri/utilit-ease-web/commit/7109206))
+
+
+
 <a name="1.2.6"></a>
 ## [1.2.6](https://github.com/ryandterri/utilit-ease-web/compare/v1.2.5...v1.2.6) (2019-01-12)
 
