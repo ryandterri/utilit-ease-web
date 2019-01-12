@@ -1,6 +1,6 @@
 {
   "name": "utilit-ease-web",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Website for comparing ercot electricity prices",
   "main": "index.js",
   "scripts": {
