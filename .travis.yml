@@ -6,13 +6,13 @@ node_js:
 
 env:
   global:
-    - VERSION=1.${TRAVIS_BUILD_NUMBER}
+    - VERSION=git describe | sed s/v//g
   matrix:
     - ARCH=x86_64
       DOCKER_BUILD=ryandterri/utilit-ease-web:${VERSION}
       DOCKERFILE=Dockerfile
     - ARCH=arm
-      DOCKER_BUILD=ryandterri/utilit-ease-web:arm32v6-${VERSION}
+      DOCKER_BUILD=ryandterri/arm32v6-utilit-ease-web:${VERSION}
       DOCKERFILE=Dockerfile.arm32v6
 services:
   - docker
