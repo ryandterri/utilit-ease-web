@@ -15,11 +15,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/ryandterri/utilit-ease-web.git"
+    "url": "git+ssh://git@github.com:ryandterri/utilit-ease-web.git"
   },
   "author": "Ryan Purcell",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/ryandterri/utilit-ease-web#readme",
+  "homepage": "https://github.com/ryandterri/utilit-ease-web#readme",
   "dependencies": {
     "express": "^4.16.4"
   },
