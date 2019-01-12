@@ -6,7 +6,7 @@ node_js:
 
 env:
   global:
-    - VERSION=git describe | sed s/v//g
+    - VERSION=$(git describe | sed s/v//g)
   matrix:
     - ARCH=x86_64
       DOCKER_BUILD=ryandterri/utilit-ease-web:${VERSION}
