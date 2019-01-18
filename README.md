@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/ryandterri/utilit-ease-web.svg?branch=master)](https://travis-ci.org/ryandterri/utilit-ease-web)
+[![Dependecy Status](https://david-dm.org/ryandterri/utilit-ease-web.svg)](https://david-dm.org/ryandterri/utilit-ease-web.svg)
+
 # Utilit-ease-web
 
 Website for comparing ercot electricity rates
