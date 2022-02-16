@@ -39,6 +39,6 @@
     "jquery": "^3.5.0",
     "load-grunt-tasks": "^4.0.0",
     "standard-version": "^8.0.1",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   }
 }
