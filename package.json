@@ -22,7 +22,7 @@
   "license": "ISC",
   "homepage": "https://github.com/ryandterri/utilit-ease-web#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
